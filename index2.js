@@ -121,7 +121,7 @@ function displayWeatherDetails(currentWeatherData){
 
     // icon div showing cloud icon
     const iconDiv = document.createElement("div");
-    iconDiv.classList.add("border-2","border-green-600","h-full","w-[8%]");
+    iconDiv.classList.add("border-2","border-green-600","h-full","w-[10%]", "mr-[0.5rem]");
 
     // creating icon element
     const iconTag = document.createElement("i");
@@ -148,6 +148,21 @@ function displayWeatherDetails(currentWeatherData){
     // appending icon div and temp div into temperature main container
     temperatureDiv.append(iconDiv,tempDiv);
 
+    // feels like temperature main container
+    const feelsLikeDiv = document.createElement("div");
+    feelsLikeDiv.classList.add("border-2", "border-pink-600", "h-[3rem]");
+
+    // text for feels like temperature and weather condition
+    const pTagForFeelsLike = document.createElement("p");
+    const PTagForFeelsLikeNumber = Math.ceil(currentWeatherData.main.feels_like) - 273;
+
+    pTagForFeelsLike.textContent = `Feels like ${PTagForFeelsLikeNumber}C.${currentWeatherData.weather[0].main}. ${currentWeatherData.weather[0].description}`;
+    pTagForFeelsLike.classList.add("text-2xl","italic","font-semibold");
+
+    // appending feels like temperature into feels like main container
+    feelsLikeDiv.append(pTagForFeelsLike);
+    // console.log(pTagForFeelsLike);
+
     // appending inside the weather sub container
-    weatherSubContainer.append(dateTimeCountryCodeCityName,temperatureDiv);
+    weatherSubContainer.append(dateTimeCountryCodeCityName,temperatureDiv,feelsLikeDiv);
 }
