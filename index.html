@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- input search field for city names -->
+    <div
+      class="input-mainContainer border-2 border-red-500 min-h-[10vh] flex justify-center"
+    >
+      <!-- input sub container -->
+      <div
+        class="input-subContainer border-2 border-green-600 h-full w-[50%] flex gap-x-4"
+      >
+        <input
+          class="border-2 rounded-lg px-4 py-2 w-[60%] shadow-md"
+          type="text"
+          id="cityName"
+          placeholder="Enter your city name"
+        />
+        <button
+          class="submitButton w-[20%] text-lg cursor-pointer bg-green-500 rounded-md px-2 py-2"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+    <!-- weather details -->
+    <div
+      class="weather-mainContainer border-2 border-blue-500 mt-[2rem] h-[55vh]"
+    >
+      <!-- weather details sub container -->
+      <div
+        class="weather-subContainer border-2 border-green-600 h-full w-[60%] mx-auto flex flex-col shadow-lg rounded-md"
+      ></div>
+    </div>
+  </body>
+</html>
+<!-- <script src="./index.js"></script> -->
+<script src="./index2.js"></script>
