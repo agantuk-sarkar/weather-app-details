@@ -8,13 +8,17 @@
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
   </head>
   <body>
+    <!-- heading -->
+     <div class="headerOfApp border-transparent h-[10vh]">
+      <h3 class="text-center text-4xl italic font-bold">Weather Forecast</h3>
+     </div>
     <!-- input search field for city names -->
     <div
-      class="input-mainContainer border-transparent min-h-[10vh] flex justify-center"
+      class="input-mainContainer border-transparent min-h-[10vh] flex justify-center mt-[1rem]"
     >
       <!-- input sub container -->
       <div
-        class="input-subContainer border-transparent h-full w-[50%] flex justify-around relative rounded-md shadow-md"
+        class="input-subContainer border-transparent h-full w-[40%] flex justify-between relative rounded-md shadow-md"
       >
         <input
           class="border-2 rounded-lg px-4 py-2 w-[60%] shadow-md"
@@ -22,7 +26,7 @@
           id="cityName"
           placeholder="Enter your city name"
         />
-        <i class="removeSearch lni lni-cross-circle absolute top-[0.3rem] left-[20rem] text-2xl text-red-600 cursor-pointer"></i>
+        <i class="removeSearch lni lni-cross-circle absolute top-[0.3rem] left-[15rem] text-2xl text-red-600 cursor-pointer"></i>
         <button
           class="submitButton w-[20%] text-lg cursor-pointer bg-green-500 rounded-md px-2 py-2"
         >
