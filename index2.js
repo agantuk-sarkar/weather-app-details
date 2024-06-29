@@ -168,7 +168,7 @@ function displayWeatherDetails(currentWeatherData) {
   // temperature text in celcius
   const tempText = document.createElement("p");
   const tempNumber = Math.ceil(currentWeatherData.main.temp) - 273;
-  tempText.textContent = `${tempNumber}C`;
+  tempText.innerHTML = `${tempNumber}<span>&#176;C</span>`;
   // console.log(tempText);
   tempText.classList.add("text-4xl", "font-semibold");
 
@@ -190,7 +190,7 @@ function displayWeatherDetails(currentWeatherData) {
   const PTagForFeelsLikeNumber =
     Math.ceil(currentWeatherData.main.feels_like) - 273;
 
-  pTagForFeelsLike.textContent = `Feels like ${PTagForFeelsLikeNumber}C.${currentWeatherData.weather[0].main}. ${currentWeatherData.weather[0].description}`;
+  pTagForFeelsLike.innerHTML = `Feels like ${PTagForFeelsLikeNumber}<span>&#176;C</span>.${currentWeatherData.weather[0].main}. ${currentWeatherData.weather[0].description}`;
   pTagForFeelsLike.classList.add("text-2xl", "italic", "font-semibold");
 
   // appending feels like temperature into feels like main container
