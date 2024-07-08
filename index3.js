@@ -13,6 +13,7 @@ const weatherForecastBaseUrl = "https://api.openweathermap.org/data/2.5/forecast
 // getting the html elements into js
 const cityName = document.getElementById("cityName");
 const submitButton = document.querySelector(".submitButton");
+const weatherReportDetails = document.querySelector(".weather-report");
 
 // click event for submit button which is used as a callback function
 submitButton.addEventListener("click",getLatAndLong);
@@ -46,6 +47,7 @@ async function getWeatherForecast(latitude,longitude){
             let response = await fetch(weatherForecastSearchUrl);
             let weatherData = await response.json();
             console.log("weatherData:",weatherData);
+            weatherReport(weatherData);
         }
     }catch(error){
         console.log("error",error);
@@ -53,3 +55,95 @@ async function getWeatherForecast(latitude,longitude){
 
 }
 
+// function to display weather report in UI
+function weatherReport(weatherData){
+
+    weatherReportDetails.innerHTML = "";
+
+    // <!-- date, time, cityName and country code main container -->
+
+    const dateTimeCountryCodeCityNameDiv = document.createElement("div");
+    dateTimeCountryCodeCityNameDiv.classList.add(
+        "border-transparent",
+        "h-[5rem]",
+        "shadow-md"
+      );
+
+      const dateAndTimeText = document.createElement("h2");
+      dateAndTimeText.textContent = new Date().toLocaleDateString("en-us", {
+        weekday: "long",
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+      dateAndTimeText.classList.add("italic","text-red-500","font-semibold","text-xl");
+
+    //   text for city name and country code
+    const cityNameAndCountryCode = document.createElement("h2");
+    cityNameAndCountryCode.classList.add("font-semibold","text-2xl");
+    cityNameAndCountryCode.textContent = `${weatherData.city.name}, ${weatherData.city.country}`;
+
+    // temperature and icon for weather report
+    const tempIconAndTempDiv = document.createElement("div");
+    tempIconAndTempDiv.classList.add(
+        "border-transparent",
+        "h-[4rem]",
+        "shadow-md",
+        "flex"
+      );
+      const tempIcon = document.createElement("img");
+      tempIcon.src = "https://openweathermap.org/img/wn/10d@2x.png";
+      tempIcon.classList.add("h-full","w-[20%]","rounded-md");
+
+      const tempText = document.createElement("span");
+      tempText.innerHTML = `${weatherData.list[0].main.temp}<span>&#176;C</span>`;
+      tempText.classList.add("text-3xl","font-semibold","mt-[1rem]");
+
+    //   feels like text
+    const feelsLikeDiv = document.createElement("div");
+    const feelsLikeText = document.createElement("p");
+    feelsLikeText.innerHTML = `Feels like ${weatherData.list[0].main.feels_like}<span>&#176;C</span>. ${weatherData.list[0].weather[0].main}. ${weatherData.list[0].weather[0].description}`;
+    feelsLikeText.classList.add("font-semibold","text-xl");
+
+    // wind speed, humidity, pressure and visibility
+    const windHumidityPressureMainDiv = document.createElement("div");
+    windHumidityPressureMainDiv.classList.add("flex","gap-4");
+
+    //   humidity and wind speed div
+    const humidityWindSpeedSubDiv = document.createElement("div");
+
+    const windSpeedText = document.createElement("p");
+    windSpeedText.innerHTML = `Wind Speed: ${weatherData.list[0].wind.speed}m/s`;
+    windSpeedText.classList.add("text-base","italic");
+
+    const humidityText = document.createElement("p");
+    humidityText.innerHTML = `Humidity: ${weatherData.list[0].main.humidity}%`;
+    humidityText.classList.add("text-base","italic");
+
+    humidityWindSpeedSubDiv.append(windSpeedText,humidityText);
+
+    // pressure and visibility div
+    const pressureHumiditySubDiv = document.createElement("div");
+
+    const pressureText = document.createElement("p");
+    pressureText.innerHTML = `Pressure: ${weatherData.list[0].main.pressure}hPa`;
+    pressureText.classList.add("text-base","italic");
+
+    const visibilityText = document.createElement("p");
+    visibilityText.innerHTML = `Visibility: ${weatherData.list[0].visibility/1000}km`;
+    visibilityText.classList.add("text-base","italic");
+
+    pressureHumiditySubDiv.append(pressureText,visibilityText);
+
+
+
+    dateTimeCountryCodeCityNameDiv.append(dateAndTimeText,cityNameAndCountryCode);
+    tempIconAndTempDiv.append(tempIcon,tempText);
+    feelsLikeDiv.append(feelsLikeText);
+    windHumidityPressureMainDiv.append(humidityWindSpeedSubDiv,pressureHumiditySubDiv);
+
+
+    // appending all to weather report container
+    weatherReportDetails.append(dateTimeCountryCodeCityNameDiv,tempIconAndTempDiv,feelsLikeDiv,windHumidityPressureMainDiv);
+
+}

@@ -7,6 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
   </head>
+  <style>
+    *{
+      box-sizing: border-box;
+    }
+  </style>
   <body>
     <!-- heading -->
      <div class="headerOfApp border-transparent h-[10vh]">
@@ -26,6 +31,7 @@
           id="cityName"
           placeholder="Enter your city name"
         />
+        <!-- remove search value -->
         <i class="removeSearch lni lni-cross-circle absolute top-[0.3rem] left-[15rem] text-2xl text-red-600 cursor-pointer"></i>
         <button
           class="submitButton w-[20%] text-lg cursor-pointer bg-green-500 rounded-md px-2 py-2"
@@ -34,9 +40,13 @@
         </button>
       </div>
     </div>
-    <!-- weather details -->
+    <!-- weather details main container -->
+     <div class="weather-mainContainer border-2 border-red-600 min-h-[50vh] mt-[1rem] flex gap-4 p-2">
+      <!-- weather report -->
+       <div class="weather-report border-2 border-blue-500 h-full w-[50%] flex flex-col justify-between"></div>
+       <!-- weather map -->
+        <div class="weather-map border-2 border-green-500 h-full w-[50%]"></div>
+     </div>
   </body>
 </html>
-<!-- <script src="./index.js"></script> -->
-<!-- <script src="./index2.js"></script> -->
  <script src="./index3.js"></script>
