@@ -1,5 +1,4 @@
 const apiKey = "f817146fcecc4da4ac85a07568ba8c60";
-// const cityName = "Kolkata";
 
 // current latitude and longitude base URL
 const latAndLongBaseUrl = "http://api.openweathermap.org/geo/1.0/direct";
@@ -11,7 +10,7 @@ const currentWeatherBaseUrl = "https://api.openweathermap.org/data/2.5/weather";
 let cityName = document.getElementById("cityName");
 const removeSearchButton = document.querySelector(".removeSearch");
 const submitButton = document.querySelector(".submitButton");
-const weatherSubContainer = document.querySelector(".weather-subContainer");
+// const weatherSubContainer = document.querySelector(".weather-subContainer");
 
 // click event for remove search icon
 removeSearchButton.addEventListener("click", function () {
@@ -200,7 +199,7 @@ function displayWeatherDetails(currentWeatherData) {
   const windHumidityPressureDiv = document.createElement("div");
   windHumidityPressureDiv.classList.add(
     "border-transparent",
-    "h-[4rem]",
+    "h-[10rem]",
     "flex",
     "shadow-md"
   );
