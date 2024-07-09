@@ -14,6 +14,11 @@ const weatherForecastBaseUrl = "https://api.openweathermap.org/data/2.5/forecast
 const cityName = document.getElementById("cityName");
 const submitButton = document.querySelector(".submitButton");
 const weatherReportDetails = document.querySelector(".weather-report");
+const weatherMapIframe = document.getElementById("gmap-canvas");
+const removeSearch = document.querySelector(".removeSearch");
+
+// click event for remove search value which is used as a callback function
+removeSearch.addEventListener("click",removeSearchValue);
 
 // click event for submit button which is used as a callback function
 submitButton.addEventListener("click",getLatAndLong);
@@ -23,18 +28,24 @@ submitButton.addEventListener("click",getLatAndLong);
 async function getLatAndLong(){
     try{
         let city = cityName.value;
+
+        if(city){
+            showMap(city);
+        }
+
         let latAndLongSearchUrl = `${latAndLongBaseUrl}?q=${city}&appid=${apiKey}`;
+
          let response = await fetch(latAndLongSearchUrl);
+
          if(response.ok && latAndLongSearchUrl){
             let latAndLongData = await response.json();
-            // console.log("latAndLongData:",latAndLongData);
 
             let latitude = latAndLongData[0].lat;
             let longitude = latAndLongData[0].lon;
             getWeatherForecast(latitude,longitude);
          }
     }catch(error){
-        console.log("error",error);
+        console.log("error:",error);
     }
 }
 
@@ -45,12 +56,14 @@ async function getWeatherForecast(latitude,longitude){
 
         if(weatherForecastSearchUrl){
             let response = await fetch(weatherForecastSearchUrl);
+
             let weatherData = await response.json();
-            console.log("weatherData:",weatherData);
+            // console.log("weatherData:",weatherData);
+
             weatherReport(weatherData);
         }
     }catch(error){
-        console.log("error",error);
+        console.log("error:",error);
     }
 
 }
@@ -60,7 +73,7 @@ function weatherReport(weatherData){
 
     weatherReportDetails.innerHTML = "";
 
-    // <!-- date, time, cityName and country code main container -->
+    // date, time, cityName and country code main container
 
     const dateTimeCountryCodeCityNameDiv = document.createElement("div");
     dateTimeCountryCodeCityNameDiv.classList.add(
@@ -99,8 +112,9 @@ function weatherReport(weatherData){
       tempText.innerHTML = `${weatherData.list[0].main.temp}<span>&#176;C</span>`;
       tempText.classList.add("text-3xl","font-semibold","mt-[1rem]");
 
-    //   feels like text
+    //   feels like temperature text
     const feelsLikeDiv = document.createElement("div");
+
     const feelsLikeText = document.createElement("p");
     feelsLikeText.innerHTML = `Feels like ${weatherData.list[0].main.feels_like}<span>&#176;C</span>. ${weatherData.list[0].weather[0].main}. ${weatherData.list[0].weather[0].description}`;
     feelsLikeText.classList.add("font-semibold","text-xl");
@@ -136,14 +150,36 @@ function weatherReport(weatherData){
     pressureHumiditySubDiv.append(pressureText,visibilityText);
 
 
-
+    //   appending each elements into their respective boxes
     dateTimeCountryCodeCityNameDiv.append(dateAndTimeText,cityNameAndCountryCode);
+
     tempIconAndTempDiv.append(tempIcon,tempText);
+
     feelsLikeDiv.append(feelsLikeText);
+
     windHumidityPressureMainDiv.append(humidityWindSpeedSubDiv,pressureHumiditySubDiv);
 
 
     // appending all to weather report container
     weatherReportDetails.append(dateTimeCountryCodeCityNameDiv,tempIconAndTempDiv,feelsLikeDiv,windHumidityPressureMainDiv);
 
+}
+
+// function to show map
+function showMap(cityValue){
+
+    weatherMapIframe.innerHTML = "";
+    
+    const iFrameTag = document.createElement("iframe");
+
+    iFrameTag.src = `https://www.google.com/maps/embed/v1/place?q=${cityValue}&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8`;
+
+    iFrameTag.style = "height: 100%; width: 100%; border: 0; border-radius:10px";
+
+    weatherMapIframe.append(iFrameTag);
+}
+
+// function to remove the search value
+function removeSearchValue(){
+    cityName.value = null;
 }

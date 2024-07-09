@@ -8,15 +8,15 @@
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
   </head>
   <style>
-    *{
+    * {
       box-sizing: border-box;
     }
   </style>
   <body>
     <!-- heading -->
-     <div class="headerOfApp border-transparent h-[10vh]">
+    <div class="headerOfApp border-transparent h-[10vh]">
       <h3 class="text-center text-4xl italic font-bold">Weather Forecast</h3>
-     </div>
+    </div>
     <!-- input search field for city names -->
     <div
       class="input-mainContainer border-transparent min-h-[10vh] flex justify-center mt-[1rem]"
@@ -32,7 +32,9 @@
           placeholder="Enter your city name"
         />
         <!-- remove search value -->
-        <i class="removeSearch lni lni-cross-circle absolute top-[0.3rem] left-[15rem] text-2xl text-red-600 cursor-pointer"></i>
+        <i
+          class="removeSearch lni lni-cross-circle absolute top-[0.3rem] left-[15rem] text-2xl text-red-600 cursor-pointer"
+        ></i>
         <button
           class="submitButton w-[20%] text-lg cursor-pointer bg-green-500 rounded-md px-2 py-2"
         >
@@ -41,12 +43,56 @@
       </div>
     </div>
     <!-- weather details main container -->
-     <div class="weather-mainContainer border-2 border-red-600 min-h-[50vh] mt-[1rem] flex gap-4 p-2">
+    <div
+      class="weather-mainContainer border-2 border-red-600 min-h-[50vh] mt-[1rem] flex gap-4 p-2"
+    >
       <!-- weather report -->
-       <div class="weather-report border-2 border-blue-500 h-full w-[50%] flex flex-col justify-between"></div>
-       <!-- weather map -->
-        <div class="weather-map border-2 border-green-500 h-full w-[50%]"></div>
+      <div
+        class="weather-report border-2 border-blue-500 h-full w-[50%] flex flex-col justify-between"
+      ></div>
+      <!-- weather map -->
+      <div class="weather-map border-2 border-green-500 h-full w-[50%]">
+        <div
+          style="
+            max-width: 100%;
+            list-style: none;
+            transition: none;
+            overflow: hidden;
+            width: 100%;
+            height: 37vh;
+          "
+        >
+          <div
+            id="gmap-canvas"
+            style="height: 100%; width: 100%; max-width: 100%"
+          >
+            <!-- <iframe
+              style="height: 100%; width: 100%; border: 0"
+              frameborder="0"
+              src="https://www.google.com/maps/embed/v1/place?q=Pune&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"
+            ></iframe> -->
+          </div>
+          <a
+            class="googlemaps-made"
+            rel="nofollow"
+            href="https://www.bootstrapskins.com/themes"
+            id="enable-map-info"
+            >premium bootstrap themes</a
+          ><style>
+            #gmap-canvas img {
+              max-width: none !important;
+              background: none !important;
+              font-size: inherit;
+              font-weight: inherit;
+            }
+          </style>
+        </div>
+      </div>
+    </div>
+    <!-- weather forecast main container -->
+     <div class="weatherForecast-mainContainer border-2 border-blue-600 mt-[1rem] min-h-[40vh]">
+      <h2 class="text-center text-3xl italic font-bold">7 Day Forecast</h2>
      </div>
   </body>
 </html>
- <script src="./index3.js"></script>
+<script src="./index3.js"></script>
