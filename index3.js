@@ -16,6 +16,7 @@ const submitButton = document.querySelector(".submitButton");
 const weatherReportDetails = document.querySelector(".weather-report");
 const weatherMapIframe = document.getElementById("gmap-canvas");
 const removeSearch = document.querySelector(".removeSearch");
+const forecastSubContainer = document.querySelector(".forecast-subContainer");
 
 // click event for remove search value which is used as a callback function
 removeSearch.addEventListener("click",removeSearchValue);
@@ -61,6 +62,7 @@ async function getWeatherForecast(latitude,longitude){
             // console.log("weatherData:",weatherData);
 
             weatherReport(weatherData);
+            showForecast(weatherData);
         }
     }catch(error){
         console.log("error:",error);
@@ -182,4 +184,47 @@ function showMap(cityValue){
 // function to remove the search value
 function removeSearchValue(){
     cityName.value = null;
+}
+
+// function to show 7days forecast
+function showForecast(weatherForecast){
+
+    forecastSubContainer.innerHTML = "";
+
+// storing the list array
+    const forecastArray = weatherForecast.list
+
+    // using higher order function to the list array
+
+    forecastArray?.forEach(function(forecastData,index){
+
+
+    const forecastDetailsDiv = document.createElement("div");
+    forecastDetailsDiv.classList.add("border-2","border-green-500","h-[4rem]","flex");
+
+    const dayAndDate = new Date(forecastData.dt).toLocaleDateString("en-us", {
+        weekday: "long",
+        month: "short",
+        day: "numeric",
+      });
+
+          const weatherIcon = document.createElement("img");
+          weatherIcon.src = "https://openweathermap.org/img/wn/10d@2x.png";
+          weatherIcon.classList.add("h-full","w-[20%]","rounded-md");
+
+        //   const weatherDescription = document.createElement("span");
+        //   weatherDescription.textContent = `${forecastData.weather[index].description}`;
+
+          const entireWeatherForecastDetails = document.createElement("p");
+          entireWeatherForecastDetails.innerHTML = `${dayAndDate} ${forecastData.main.temp_max}/${forecastData.main.temp_min}<span>&#176;C</span>`;
+          entireWeatherForecastDetails.classList.add("mt-[1rem]","italic","text-base","font-semibold");
+
+
+          forecastDetailsDiv.append(weatherIcon,entireWeatherForecastDetails);
+          console.log(forecastDetailsDiv);
+
+    forecastSubContainer.append(forecastDetailsDiv);
+
+    });
+
 }
