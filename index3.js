@@ -187,6 +187,7 @@ function removeSearchValue(){
     cityName.value = null;
 }
 
+
 // function to show 7days forecast
 function showForecast(weatherForecast){
 
@@ -195,7 +196,7 @@ function showForecast(weatherForecast){
     // making the 7 day forecast heading visible
     forecastHeading.style.display = "block";
 
-// storing the list array
+    // storing the list array
     const forecastArray = weatherForecast.list
 
     // using higher order function to the list array
@@ -204,13 +205,18 @@ function showForecast(weatherForecast){
     // this will create 7 boxes
     const forecastDetailsDiv = document.createElement("div");
     forecastDetailsDiv.classList.add("border-2","border-green-500","h-[4rem]","flex","shadow-md");
+
+    // console.log(forecastData.dt);
     
     // this will provide us the day, date and month
-    const dayAndDate = new Date(forecastData.dt).toLocaleDateString("en-us", {
-        weekday: "long",
-        month: "short",
-        day: "numeric",
-      });
+    const dayDateMonthText = forecastData.dt;
+
+    const dayAndDate = new Date(dayDateMonthText).toLocaleDateString("en-us", {
+      weekday: "long",
+      month: "short",
+      day: "numeric",
+    });
+    // console.log(dayAndDate);
 
     //   this will provide us the weather icon
           const weatherIcon = document.createElement("img");
