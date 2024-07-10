@@ -210,13 +210,13 @@ function showForecast(weatherForecast){
     
     // this will provide us the day, date and month
     const dayDateMonthText = forecastData.dt;
-
+    // const dayArray = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
     const dayAndDate = new Date(dayDateMonthText).toLocaleDateString("en-us", {
       weekday: "long",
       month: "short",
       day: "numeric",
     });
-    // console.log(dayAndDate);
+    
 
     //   this will provide us the weather icon
           const weatherIcon = document.createElement("img");
