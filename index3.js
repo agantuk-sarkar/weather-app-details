@@ -16,6 +16,7 @@ const submitButton = document.querySelector(".submitButton");
 const weatherReportDetails = document.querySelector(".weather-report");
 const weatherMapIframe = document.getElementById("gmap-canvas");
 const removeSearch = document.querySelector(".removeSearch");
+const forecastHeading = document.querySelector(".forecast-heading");
 const forecastSubContainer = document.querySelector(".forecast-subContainer");
 
 // click event for remove search value which is used as a callback function
@@ -191,40 +192,56 @@ function showForecast(weatherForecast){
 
     forecastSubContainer.innerHTML = "";
 
+    // making the 7 day forecast heading visible
+    forecastHeading.style.display = "block";
+
 // storing the list array
     const forecastArray = weatherForecast.list
 
     // using higher order function to the list array
+    forecastArray?.map(function(forecastData,index){
 
-    forecastArray?.forEach(function(forecastData,index){
-
-
+    // this will create 7 boxes
     const forecastDetailsDiv = document.createElement("div");
-    forecastDetailsDiv.classList.add("border-2","border-green-500","h-[4rem]","flex");
-
+    forecastDetailsDiv.classList.add("border-2","border-green-500","h-[4rem]","flex","shadow-md");
+    
+    // this will provide us the day, date and month
     const dayAndDate = new Date(forecastData.dt).toLocaleDateString("en-us", {
         weekday: "long",
         month: "short",
         day: "numeric",
       });
 
+    //   this will provide us the weather icon
           const weatherIcon = document.createElement("img");
           weatherIcon.src = "https://openweathermap.org/img/wn/10d@2x.png";
-          weatherIcon.classList.add("h-full","w-[20%]","rounded-md");
+          weatherIcon.classList.add("h-full","w-[20%]","rounded-md");;
 
-        //   const weatherDescription = document.createElement("span");
-        //   weatherDescription.textContent = `${forecastData.weather[index].description}`;
-
+        //   this will show us day, date, month, max and min temperature together in a sentence
           const entireWeatherForecastDetails = document.createElement("p");
-          entireWeatherForecastDetails.innerHTML = `${dayAndDate} ${forecastData.main.temp_max}/${forecastData.main.temp_min}<span>&#176;C</span>`;
+          entireWeatherForecastDetails.innerHTML = `${dayAndDate}, ${forecastData.main.temp_max}/${forecastData.main.temp_min}<span>&#176;C</span>`;
           entireWeatherForecastDetails.classList.add("mt-[1rem]","italic","text-base","font-semibold");
 
-
+    //   appending the icon and entire weather details in the beginning
           forecastDetailsDiv.append(weatherIcon,entireWeatherForecastDetails);
-          console.log(forecastDetailsDiv);
 
+    //   getting the weather array from list object
+          const weatherArray = forecastData.weather;
+        //   applying higher order function to the weather array
+          weatherArray?.forEach(function(weatherDetails){
+            // console.log(weatherDetails);
+
+            const weatherDescription = document.createElement("p");
+            weatherDescription.innerHTML = `,${weatherDetails.description}`;
+            // console.log(weatherDescription);
+            weatherDescription.classList.add("mt-[1rem]","ml-[0.5rem]","italic","text-base","font-semibold");
+
+            // appending the weather array from the list object into the forecast details div
+            forecastDetailsDiv.append(weatherDescription);
+          })
+
+    // appending the final forecast details div into the forecast sub container   
     forecastSubContainer.append(forecastDetailsDiv);
-
     });
 
 }
