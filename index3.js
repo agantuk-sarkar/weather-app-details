@@ -205,17 +205,19 @@ function showForecast(weatherForecast){
     // this will create 7 boxes
     const forecastDetailsDiv = document.createElement("div");
     forecastDetailsDiv.classList.add("border-2","border-green-500","h-[4rem]","flex","shadow-md");
-
-    // console.log(forecastData.dt);
-    
+   
     // this will provide us the day, date and month
-    const dayDateMonthText = forecastData.dt;
+      const dayDateMonthText = forecastData.dt_txt;
+    // console.log(dayDateMonthText);
+
     // const dayArray = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
     const dayAndDate = new Date(dayDateMonthText).toLocaleDateString("en-us", {
       weekday: "long",
       month: "short",
       day: "numeric",
     });
+
+    // console.log(dayAndDate);
     
 
     //   this will provide us the weather icon
