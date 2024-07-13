@@ -41,10 +41,17 @@ async function getLatAndLong(){
 
          if(response.ok && latAndLongSearchUrl){
             let latAndLongData = await response.json();
+            console.log(latAndLongData);
 
             let latitude = latAndLongData[0].lat;
             let longitude = latAndLongData[0].lon;
-            getWeatherForecast(latitude,longitude);
+
+            let cityNameInLatAndLong = latAndLongData[0].name;
+            let countryCodeInLatAndLong = latAndLongData[0].country;
+
+            if(latitude && longitude){
+              getWeatherData(latitude,longitude,cityNameInLatAndLong,countryCodeInLatAndLong);
+            }
          }
     }catch(error){
         console.log("error:",error);
@@ -52,7 +59,7 @@ async function getLatAndLong(){
 }
 
 // function to get daily weather forecast
-async function getWeatherForecast(latitude,longitude){
+async function getWeatherData(latitude,longitude,cityNameAndCountryCode,countryCodeInLatAndLong){
     try{
         let weatherForecastSearchUrl = `${weatherForecastBaseUrl}?lat=${latitude}&lon=${longitude}&units=metric&cnt=7&appid=${apiKey}`;
 
@@ -62,7 +69,9 @@ async function getWeatherForecast(latitude,longitude){
             let weatherData = await response.json();
             // console.log("weatherData:",weatherData);
 
-            weatherReport(weatherData);
+            // weatherReport(weatherData);
+            setCityAndCountryCode(weatherData,cityNameAndCountryCode,countryCodeInLatAndLong);
+
             showForecast(weatherData);
         }
     }catch(error){
@@ -71,8 +80,15 @@ async function getWeatherForecast(latitude,longitude){
 
 }
 
+function setCityAndCountryCode(weatherData,cityName,countryCode){
+  // let cityName = cityName;
+  // let countryCode = countryCode;
+
+  weatherReport(weatherData,cityName,countryCode);
+}
+
 // function to display weather report in UI
-function weatherReport(weatherData){
+function weatherReport(weatherData,cityName,countryCode){
 
     weatherReportDetails.innerHTML = "";
 
@@ -97,7 +113,7 @@ function weatherReport(weatherData){
     //   text for city name and country code
     const cityNameAndCountryCode = document.createElement("h2");
     cityNameAndCountryCode.classList.add("font-semibold","text-2xl");
-    cityNameAndCountryCode.textContent = `${weatherData.city.name}, ${weatherData.city.country}`;
+    cityNameAndCountryCode.textContent = `${cityName}, ${countryCode}`;
 
     // temperature and icon for weather report
     const tempIconAndTempDiv = document.createElement("div");
