@@ -31,9 +31,9 @@ async function getLatAndLong(){
     try{
         let city = cityName.value;
 
-        if(city){
-            showMap(city);
-        }
+        // if(city){
+        //     showMap(city);
+        // }
 
         let latAndLongSearchUrl = `${latAndLongBaseUrl}?q=${city}&appid=${apiKey}`;
 
@@ -73,6 +73,8 @@ async function getWeatherData(latitude,longitude,cityNameAndCountryCode,countryC
             setCityAndCountryCode(weatherData,cityNameAndCountryCode,countryCodeInLatAndLong);
 
             showForecast(weatherData);
+
+            showMap(cityNameAndCountryCode);
         }
     }catch(error){
         console.log("error:",error);
@@ -269,3 +271,42 @@ function showForecast(weatherForecast){
     });
 
 }
+
+// function to get current location data
+function currentLocation(){
+
+  navigator.geolocation.getCurrentPosition(success);
+
+}
+
+async function success(position){
+  console.log("position:",position);
+   
+  let latitudeLocation = position.coords.latitude;
+  let longitudeLocation = position.coords.longitude;
+
+  if(latitudeLocation && longitudeLocation){
+
+    let latAndLongGeoLocationUrl = `http://api.openweathermap.org/geo/1.0/reverse?lat=${latitudeLocation}&lon=${longitudeLocation}&appid=${apiKey}`;
+
+    if(latAndLongGeoLocationUrl){
+      let responseObj = await fetch(latAndLongGeoLocationUrl);
+
+      let locationData = await responseObj.json();
+
+      let cityNameLocation = locationData[0].name;
+      let countryCodeLocation = locationData[0].country;
+
+      console.log(locationData);
+      // console.log(cityNameLocation);
+      // console.log(countryCodeLocation);
+    getWeatherData(latitudeLocation,longitudeLocation,cityNameLocation,countryCodeLocation);
+
+
+    }
+
+  }
+
+  // console.log(longitudeLocation);
+}
+currentLocation();
