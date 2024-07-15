@@ -6,9 +6,6 @@ const latAndLongBaseUrl = "http://api.openweathermap.org/geo/1.0/direct";
 
 // daily forecast weather search API
 const weatherForecastBaseUrl = "https://api.openweathermap.org/data/2.5/forecast";
-// const weatherForecastBaseUrl = "https://api.openweathermap.org/data/2.5/weather";
-
-
 
 // getting the html elements into js
 const cityName = document.getElementById("cityName");
@@ -37,7 +34,6 @@ async function getLatAndLong(){
 
          if(response.ok && latAndLongSearchUrl){
             let latAndLongData = await response.json();
-            // console.log(latAndLongData);
 
             let latitude = latAndLongData[0].lat;
             let longitude = latAndLongData[0].lon;
@@ -54,7 +50,7 @@ async function getLatAndLong(){
     }
 }
 
-// function to get daily weather forecast
+// function to get daily weather report using the weather URL
 async function getWeatherData(latitude,longitude,cityNameAndCountryCode,countryCodeInLatAndLong){
     try{
         let weatherForecastSearchUrl = `${weatherForecastBaseUrl}?lat=${latitude}&lon=${longitude}&units=metric&cnt=7&appid=${apiKey}`;
@@ -63,7 +59,6 @@ async function getWeatherData(latitude,longitude,cityNameAndCountryCode,countryC
             let response = await fetch(weatherForecastSearchUrl);
 
             let weatherData = await response.json();
-            // console.log("weatherData:",weatherData);
 
             // weatherReport(weatherData);
             setCityAndCountryCode(weatherData,cityNameAndCountryCode,countryCodeInLatAndLong);
@@ -180,7 +175,7 @@ function weatherReport(weatherData,cityName,countryCode){
 
 }
 
-// function to show map
+// function to show map corresponding to city name
 function showMap(cityValue){
 
     weatherMapIframe.innerHTML = "";
@@ -216,26 +211,21 @@ function showForecast(weatherForecast){
 
     // this will create 7 boxes
     const forecastDetailsDiv = document.createElement("div");
-    forecastDetailsDiv.classList.add("border-2","border-green-500","h-[4rem]","flex","shadow-md");
+    forecastDetailsDiv.classList.add("border-transparent","h-[4rem]","flex","justify-center","shadow-md");
    
     // this will provide us the day, date and month
       const dayDateMonthText = forecastData.dt_txt;
-    // console.log(dayDateMonthText);
 
-    // const dayArray = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
     const dayAndDate = new Date(dayDateMonthText).toLocaleDateString("en-us", {
       weekday: "long",
       month: "short",
       day: "numeric",
-    });
-
-    // console.log(dayAndDate);
-    
+    });   
 
     //   this will provide us the weather icon
           const weatherIcon = document.createElement("img");
           weatherIcon.src = "https://openweathermap.org/img/wn/10d@2x.png";
-          weatherIcon.classList.add("h-full","w-[20%]","rounded-md");;
+          weatherIcon.classList.add("h-full","w-[10%]","rounded-md");;
 
         //   this will show us day, date, month, max and min temperature together in a sentence
           const entireWeatherForecastDetails = document.createElement("p");
@@ -247,9 +237,9 @@ function showForecast(weatherForecast){
 
     //   getting the weather array from list object
           const weatherArray = forecastData.weather;
+
         //   applying higher order function to the weather array
           weatherArray?.forEach(function(weatherDetails){
-            // console.log(weatherDetails);
 
             const weatherDescription = document.createElement("p");
             weatherDescription.innerHTML = `,${weatherDetails.description}`;
@@ -266,13 +256,14 @@ function showForecast(weatherForecast){
 
 }
 
-// function to get current location data
+// function to get current location data using geolocation
 function currentLocation(){
 
   navigator.geolocation.getCurrentPosition(success);
 
 }
 
+// success callback function which is used in getCurrentPosition method's argument
 async function success(position){
    
   try{
@@ -305,5 +296,6 @@ async function success(position){
   }
 
 }
+
 // calling the currentLocation function in global execution context
 currentLocation();
