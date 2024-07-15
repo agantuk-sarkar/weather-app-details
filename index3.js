@@ -60,8 +60,7 @@ async function getWeatherData(latitude,longitude,cityNameAndCountryCode,countryC
 
             let weatherData = await response.json();
 
-            // weatherReport(weatherData);
-            setCityAndCountryCode(weatherData,cityNameAndCountryCode,countryCodeInLatAndLong);
+            weatherReport(weatherData,cityNameAndCountryCode,countryCodeInLatAndLong);
 
             showForecast(weatherData);
 
@@ -71,11 +70,6 @@ async function getWeatherData(latitude,longitude,cityNameAndCountryCode,countryC
         console.log("error:",error);
     }
 
-}
-
-function setCityAndCountryCode(weatherData,cityName,countryCode){
-
-  weatherReport(weatherData,cityName,countryCode);
 }
 
 // function to display weather report in UI
@@ -276,9 +270,11 @@ async function success(position){
     let latAndLongGeoLocationUrl = `http://api.openweathermap.org/geo/1.0/reverse?lat=${latitudeLocation}&lon=${longitudeLocation}&appid=${apiKey}`;
 
     if(latAndLongGeoLocationUrl){
+
       let responseObj = await fetch(latAndLongGeoLocationUrl);
 
       if(responseObj.ok){
+
         let locationData = await responseObj.json();
 
         let cityNameLocation = locationData[0].name;
