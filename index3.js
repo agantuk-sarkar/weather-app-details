@@ -31,17 +31,13 @@ async function getLatAndLong(){
     try{
         let city = cityName.value;
 
-        // if(city){
-        //     showMap(city);
-        // }
-
         let latAndLongSearchUrl = `${latAndLongBaseUrl}?q=${city}&appid=${apiKey}`;
 
          let response = await fetch(latAndLongSearchUrl);
 
          if(response.ok && latAndLongSearchUrl){
             let latAndLongData = await response.json();
-            console.log(latAndLongData);
+            // console.log(latAndLongData);
 
             let latitude = latAndLongData[0].lat;
             let longitude = latAndLongData[0].lon;
@@ -83,8 +79,6 @@ async function getWeatherData(latitude,longitude,cityNameAndCountryCode,countryC
 }
 
 function setCityAndCountryCode(weatherData,cityName,countryCode){
-  // let cityName = cityName;
-  // let countryCode = countryCode;
 
   weatherReport(weatherData,cityName,countryCode);
 }
@@ -280,10 +274,11 @@ function currentLocation(){
 }
 
 async function success(position){
-  console.log("position:",position);
    
-  let latitudeLocation = position.coords.latitude;
-  let longitudeLocation = position.coords.longitude;
+  try{
+
+    let latitudeLocation = position.coords.latitude;
+    let longitudeLocation = position.coords.longitude;
 
   if(latitudeLocation && longitudeLocation){
 
@@ -292,21 +287,23 @@ async function success(position){
     if(latAndLongGeoLocationUrl){
       let responseObj = await fetch(latAndLongGeoLocationUrl);
 
-      let locationData = await responseObj.json();
+      if(responseObj.ok){
+        let locationData = await responseObj.json();
 
-      let cityNameLocation = locationData[0].name;
-      let countryCodeLocation = locationData[0].country;
+        let cityNameLocation = locationData[0].name;
+        let countryCodeLocation = locationData[0].country;
 
-      console.log(locationData);
-      // console.log(cityNameLocation);
-      // console.log(countryCodeLocation);
-    getWeatherData(latitudeLocation,longitudeLocation,cityNameLocation,countryCodeLocation);
-
+        getWeatherData(latitudeLocation,longitudeLocation,cityNameLocation,countryCodeLocation);
+      }
 
     }
 
   }
 
-  // console.log(longitudeLocation);
+} catch(error){
+    console.log("error:",error);
+  }
+
 }
+// calling the currentLocation function in global execution context
 currentLocation();
