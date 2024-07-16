@@ -2,7 +2,7 @@
 const apiKey = "f817146fcecc4da4ac85a07568ba8c60";
 
 // current latitude and longitude base URL
-const latAndLongBaseUrl = "http://api.openweathermap.org/geo/1.0/direct";
+const latAndLongBaseUrl = "https://api.openweathermap.org/geo/1.0/direct";
 
 // daily forecast weather search API
 const weatherForecastBaseUrl = "https://api.openweathermap.org/data/2.5/forecast";
