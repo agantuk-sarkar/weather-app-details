@@ -267,7 +267,7 @@ async function success(position){
 
   if(latitudeLocation && longitudeLocation){
 
-    let latAndLongGeoLocationUrl = `http://api.openweathermap.org/geo/1.0/reverse?lat=${latitudeLocation}&lon=${longitudeLocation}&appid=${apiKey}`;
+    let latAndLongGeoLocationUrl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitudeLocation}&lon=${longitudeLocation}&appid=${apiKey}`;
 
     if(latAndLongGeoLocationUrl){
 
