@@ -125,7 +125,7 @@ function weatherReport(weatherData,cityName,countryCode){
 
     // wind speed, humidity, pressure and visibility
     const windHumidityPressureMainDiv = document.createElement("div");
-    windHumidityPressureMainDiv.classList.add("flex","gap-4");
+    windHumidityPressureMainDiv.classList.add("flex","gap-4","shadow-md");
 
     //   humidity and wind speed div
     const humidityWindSpeedSubDiv = document.createElement("div");
