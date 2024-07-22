@@ -188,7 +188,6 @@ function removeSearchValue(){
     cityName.value = null;
 }
 
-
 // function to show 7days forecast
 function showForecast(weatherForecast){
 
@@ -214,11 +213,12 @@ function showForecast(weatherForecast){
       weekday: "long",
       month: "short",
       day: "numeric",
-    });   
+    });
+
 
     //   this will provide us the weather icon
           const weatherIcon = document.createElement("img");
-          weatherIcon.src = "https://openweathermap.org/img/wn/10d@2x.png";
+          weatherIcon.src = `https://openweathermap.org/img/wn/11d@2x.png`;
           weatherIcon.classList.add("h-full","w-[10%]","rounded-md");;
 
         //   this will show us day, date, month, max and min temperature together in a sentence
