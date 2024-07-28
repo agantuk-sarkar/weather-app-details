@@ -7,6 +7,7 @@ const latAndLongBaseUrl = "https://api.openweathermap.org/geo/1.0/direct";
 // daily forecast weather search API
 const weatherForecastBaseUrl = "https://api.openweathermap.org/data/2.5/forecast";
 
+
 // getting the html elements into js
 const cityName = document.getElementById("cityName");
 const submitButton = document.querySelector(".submitButton");
@@ -54,7 +55,7 @@ async function getLatAndLong(){
 async function getWeatherData(latitude,longitude,cityNameAndCountryCode,countryCodeInLatAndLong){
     try{
         let weatherForecastSearchUrl = `${weatherForecastBaseUrl}?lat=${latitude}&lon=${longitude}&units=metric&cnt=7&appid=${apiKey}`;
-
+  
         if(weatherForecastSearchUrl){
             let response = await fetch(weatherForecastSearchUrl);
 
@@ -208,13 +209,12 @@ function showForecast(weatherForecast){
    
     // this will provide us the day, date and month
       const dayDateMonthText = forecastData.dt_txt;
-
+      
     const dayAndDate = new Date(dayDateMonthText).toLocaleDateString("en-us", {
-      weekday: "long",
-      month: "short",
-      day: "numeric",
+        weekday: "long",
+        month: "short",
+        day: "numeric"
     });
-
 
     //   this will provide us the weather icon
           const weatherIcon = document.createElement("img");
